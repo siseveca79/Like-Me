@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,10 +28,10 @@ pool.connect(err => {
   }
 });
 
-// Ruta para crear un post
+
 app.post('/post', async (req, res) => {
   const { usuario, url, descripcion } = req.body;
-  console.log('Datos recibidos en /post:', req.body); // Log para depuración
+  console.log('Datos recibidos en /post:', req.body); 
   if (!usuario || !url || !descripcion) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' });
   }
@@ -47,10 +47,10 @@ app.post('/post', async (req, res) => {
   }
 });
 
-// Ruta para sumar likes a un post
+
 app.put('/post', async (req, res) => {
   const { id } = req.query;
-  console.log('ID recibido en /post (PUT):', id); // Log para depuración
+  console.log('ID recibido en /post (PUT):', id); 
   if (!id) {
     return res.status(400).json({ error: 'ID del post es requerido' });
   }
@@ -70,7 +70,7 @@ app.put('/post', async (req, res) => {
   }
 });
 
-// Ruta para obtener todos los posts
+
 app.get('/posts', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM posts');
@@ -81,12 +81,12 @@ app.get('/posts', async (req, res) => {
   }
 });
 
-// Servir el archivo HTML
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Iniciar el servidor
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
